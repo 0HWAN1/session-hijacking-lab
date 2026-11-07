@@ -1,0 +1,22 @@
+# L7 Web Attack Detection Lab - Snort 3 custom signatures
+# sid는 로컬 룰 권장 대역(1000000+)을 사용해 CRS/기본 룰과 충돌을 피한다.
+# 내부자 시나리오이므로 방향은 양방향(<>)으로 둔다.
+
+# ① 쿠키 유출 시도: HTTP 트래픽 본문에 document.cookie 포함
+alert tcp $HOME_NET any <> $HOME_NET 80 ( \
+  msg:"XSS - Cookie Exfiltration Attempt"; \
+  flow:established; content:"document.cookie"; nocase; \
+  sid:1000001; rev:1; )
+
+# ② 세션 하이재킹 징후: 비정상 RST 폭주 (5초에 20회 초과)
+alert tcp $HOME_NET any <> $HOME_NET any ( \
+  msg:"Possible TCP Session Hijack - RST flood"; \
+  flags:R; detection_filter:track by_src, count 20, seconds 5; \
+  sid:1000002; rev:1; )
+
+# ③ C2로 세션 쿠키를 보내는 요청 패턴 (URI에 PHPSESSID 노출)
+alert tcp $HOME_NET any <> $HOME_NET any ( \
+  msg:"Cookie sent to C2 endpoint"; \
+  flow:established,to_server; content:"GET"; http_method; \
+  content:"PHPSESSID"; http_uri; \
+  sid:1000003; rev:1; )

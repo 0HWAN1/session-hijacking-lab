@@ -1,0 +1,10 @@
+# 실습 산출물 / 비밀 정보 — 저장소에 올리지 않음
+*.pcap
+*.pcapng
+*.log
+/logs/
+# DVWA의 실제 DB 자격증명이 들어가는 파일
+config.inc.php
+# OS/에디터 잡파일
+.DS_Store
+*.swp
