@@ -34,6 +34,9 @@
 
 ## 실습 순서
 
+> 📘 처음이라면 단계별 문서를 손으로 따라 할 수 있게 재배열한
+> **[통합 실습 가이드 (docs/00-walkthrough.md)](docs/00-walkthrough.md)** 부터 보세요.
+
 | 단계 | 내용 | 문서 |
 | --- | --- | --- |
 | 0 | VMnet8 격리망 구성 | [docs/01-network-vmnet8.md](docs/01-network-vmnet8.md) |
