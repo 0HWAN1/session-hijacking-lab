@@ -40,7 +40,7 @@
 | 단계 | 내용 | 문서 |
 | --- | --- | --- |
 | 0 | VMnet8 격리망 구성 | [docs/01-network-vmnet8.md](docs/01-network-vmnet8.md) |
-| 1 | DVWA 타겟 서버 | [docs/02-dvwa-target.md](docs/02-dvwa-target.md) |
+| 1 | 타겟 서버 (DVWA 또는 자체 취약 앱) | [docs/02-dvwa-target.md](docs/02-dvwa-target.md) · [target-app/](target-app/) |
 | 2 | Snort 3 NIDS 게이트웨이 | [docs/03-snort-nids.md](docs/03-snort-nids.md) |
 | 3 | ModSecurity WAF + 세션 하드닝 | [docs/04-modsecurity-waf.md](docs/04-modsecurity-waf.md) |
 | 4 | 공격자 · 피해자 노드 | [docs/02-dvwa-target.md](docs/02-dvwa-target.md) |
@@ -52,6 +52,7 @@
 ```
 .
 ├── docs/            # 단계별 상세 가이드
+├── target-app/      # 자체 취약 타겟 웹앱(사내 그룹웨어) — DVWA 대안
 ├── snort/           # Snort 3 커스텀 시그니처 (local.rules)
 ├── modsecurity/     # ModSecurity 커스텀 룰
 └── scripts/         # 설치·실행 보조 스크립트
@@ -60,12 +61,16 @@
 ## 빠른 시작
 
 ```bash
-# 타겟 서버(Ubuntu)에서
-sudo bash scripts/01-setup-dvwa.sh
+# 타겟 서버(Ubuntu)에서 — 둘 중 하나 선택
+sudo bash scripts/01-setup-dvwa.sh          # (A) DVWA
+sudo bash scripts/03-setup-target-app.sh    # (B) 자체 취약 앱(사내 그룹웨어)
 
 # 게이트웨이(Ubuntu)에서 Snort 실행
 sudo bash scripts/02-run-snort.sh ens33
 ```
+
+> (B) 자체 취약 앱은 `admin/password`로 로그인하고 방명록에서 저장형 XSS를
+> 재현합니다. 구성·공격 재현은 [target-app/README.md](target-app/README.md) 참고.
 
 ## 평가 지표
 

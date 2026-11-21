@@ -87,6 +87,14 @@ sudo bash scripts/01-setup-dvwa.sh
 
 **✅ 체크포인트:** DVWA 로그인되고 Guestbook이 보이면 OK.
 
+> 🔁 **대안 — 자체 취약 앱(사내 그룹웨어).** DVWA 대신 직접 만든 타겟을 쓰려면:
+> ```bash
+> sudo bash scripts/03-setup-target-app.sh
+> ```
+> `http://192.168.10.20/groupware/login.php` → `admin/password` 로그인 →
+> 방명록이 뜨면 OK. 이후 STEP 1~4의 경로만 `/dvwa/` 대신 `/groupware/` 로 바꿔
+> 똑같이 진행하면 됩니다. 상세: [../target-app/README.md](../target-app/README.md)
+
 > ⚠️ 피해자·공격자는 타겟(.20)에 **직접 접속하지 않습니다.** 다음 단계의
 > 게이트웨이(.10)를 거쳐 접속해야 ModSecurity/Snort가 트래픽을 봅니다.
 
